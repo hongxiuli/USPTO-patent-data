@@ -15,7 +15,7 @@ def processFiles(folder, xmlHandler, filesToProcess=[]):
         if(fileName.endswith('.xml')):
             print('process ', folder+fileName)
             content = ''
-            with open(folder+fileName) as f:
+            with open(folder+fileName, encoding='ISO-8859-1') as f:
                 for line in f:
                     if(line.startswith('<?xml')):
                         if(len(content)>0):
