@@ -1,5 +1,4 @@
 from bs4 import BeautifulSoup
-import os
 
 def party_us(party):
     """process TAG <PARTY-US> to return name, city, state, postal code, and country
@@ -46,7 +45,7 @@ def processXMLDoc(content):
     
     #skip design patterns
     if(patnum.startswith('D')):
-        print(patnum, 'design pattern')
+        #print(patnum, 'design pattern')
         return
     
     title = bs.B540.string
@@ -73,30 +72,4 @@ def processXMLDoc(content):
     print(patnum, title, abst, inventors, assignees)
     
     #TODO: write patnum, title, abstract, inventor(s) and assignee(s) to persistent storage such as a csv file or a relational database 
-    
-def DTD2_5(filePath):
-    """process each XML snippet in the file filePath
-    
-    @param filePath: the path of file to be processed 
-    """
-    content = ''
-    with open(filePath) as f:
-        for line in f:
-            if(line.startswith('<?xml')):
-                if(len(content)>0):
-                    processXMLDoc(content)
-                    content = ''
-            content += line
-                    
-def processDTD2_5(folder):
-    """process XML files inside folder
-    NOTE: each XML file in the folder contains lots of XML snippets. Each XML snippet represent one patent.
-    
-    @param folder: the path to the folder to be processed 
-    """
-    for fileName in os.listdir(folder):
-        if(fileName.endswith('.xml')):
-            DTD2_5(folder+fileName)
-            #break
 
-processDTD2_5("D:\\patent\\pgb\\")
